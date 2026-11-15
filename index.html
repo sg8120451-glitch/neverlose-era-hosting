@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b14">
+  <title>NEVERLOSE ERA | Bot Hosting</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #080b14;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(8, 11, 20, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #20283b;
+    }
+
+    nav {
+      max-width: 1150px;
+      margin: auto;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #3987ff;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+      font-size: 14px;
+      color: #c4ccdd;
+    }
+
+    .nav-links a:hover {
+      color: #4b91ff;
+    }
+
+    .login-btn, .primary-btn {
+      background: #2878f5;
+      color: white;
+      border: none;
+      border-radius: 9px;
+      padding: 11px 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hero {
+      max-width: 1150px;
+      margin: auto;
+      padding: 100px 20px 85px;
+      text-align: center;
+    }
+
+    .tag {
+      display: inline-block;
+      color: #7db2ff;
+      border: 1px solid #24477e;
+      background: #101e36;
+      padding: 7px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 7vw, 70px);
+      line-height: 1.12;
+      font-weight: 900;
+    }
+
+    h1 span {
+      color: #3987ff;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 22px auto;
+      color: #aab4c8;
+      font-size: 17px;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .secondary-btn {
+      border: 1px solid #34415a;
+      padding: 11px 18px;
+      border-radius: 9px;
+      color: #d9e2f5;
+    }
+
+    .section {
+      max-width: 1150px;
+      margin: auto;
+      padding: 65px 20px;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 38px;
+    }
+
+    .section-heading h2 {
+      font-size: 34px;
+    }
+
+    .section-heading p {
+      color: #9ba8bf;
+      margin-top: 8px;
+    }
+
+    .features, .plans {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature, .plan {
+      background: #101625;
+      border: 1px solid #222e44;
+      border-radius: 15px;
+      padding: 25px;
+    }
+
+    .feature-icon {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .feature p, .plan p {
+      color: #9ba8bf;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .plan {
+      position: relative;
+    }
+
+    .plan h3 {
+      font-size: 21px;
+    }
+
+    .price {
+      font-size: 32px;
+      font-weight: 900;
+      margin: 18px 0;
+    }
+
+    .price small {
+      font-size: 13px;
+      color: #9ba8bf;
+      font-weight: normal;
+    }
+
+    .plan ul {
+      list-style: none;
+      margin: 18px 0;
+      color: #d0d8e8;
+      font-size: 14px;
+    }
+
+    .plan li {
+      padding: 7px 0;
+    }
+
+    .plan li::before {
+      content: "✓ ";
+      color: #4c9bff;
+      font-weight: bold;
+    }
+
+    .plan button {
+      width: 100%;
+      padding: 12px;
+      background: #1c3154;
+      color: white;
+      border: 1px solid #3564a4;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .featured {
+      border-color: #3987ff;
+      box-shadow: 0 0 25px rgba(57, 135, 255, 0.12);
+    }
+
+    .featured button {
+      background: #2878f5;
+    }
+
+    .trial {
+      display: inline-block;
+      background: #142b24;
+      color: #76e4ae;
+      border-radius: 5px;
+      padding: 4px 9px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .ai-box {
+      text-align: center;
+      background: linear-gradient(135deg, #101d35, #111426);
+      border: 1px solid #294a7c;
+      border-radius: 18px;
+      padding: 40px 20px;
+    }
+
+    .ai-box h2 {
+      font-size: 30px;
+    }
+
+    .ai-box p {
+      max-width: 650px;
+      margin: 12px auto 22px;
+      color: #aab4c8;
+    }
+
+    footer {
+      border-top: 1px solid #20283b;
+      padding: 30px 20px;
+      text-align: center;
+      color: #8995aa;
+      font-size: 13px;
+    }
+
+    @media (max-width: 750px) {
+      .nav-links {
+        gap: 12px;
+        font-size: 12px;
+      }
+
+      .features, .plans {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 75px;
+      }
+
+      .logo {
+        font-size: 16px;
+      }
+
+      .login-btn {
+        padding: 9px 11px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .nav-links a:nth-child(2) {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <a href="#" class="logo">NEVERLOSE <span>ERA</span></a>
+
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#plans">Plans</a>
+      <button class="login-btn" onclick="loginNotice()">
+        Login
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="tag">⚡ NEXT GENERATION BOT HOSTING</div>
+
+    <h1>
+      HOST YOUR BOTS.<br>
+      <span>NEVER STOP.</span>
+    </h1>
+
+    <p>
+      A new home for your Discord bots.
+      Explore hosting plans, manage your projects,
+      and build something powerful with NEVERLOSE ERA.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#plans" class="primary-btn">Explore Plans</a>
+      <a href="#features" class="secondary-btn">Discover Features</a>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="section-heading">
+      <h2>Why NEVERLOSE ERA?</h2>
+      <p>Everything your bot hosting platform needs.</p>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">🚀</div>
+        <h3>Fast Hosting</h3>
+        <p>Designed for smooth bot deployment and management.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🛡️</div>
+        <h3>Secure Accounts</h3>
+        <p>Account protection and secure project management.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🤖</div>
+        <h3>AI Error Assistant</h3>
+        <p>Planned AI tools to help understand and troubleshoot code errors.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="plans">
+    <div class="section-heading">
+      <h2>Choose Your Hosting</h2>
+      <p>Start with a trial or choose a monthly plan.</p>
+    </div>
+
+    <div class="plans">
+
+      <div class="plan">
+        <div class="trial">30-DAY TRIAL</div>
+        <h3>Free Trial</h3>
+        <div class="price">₹0 <small>/ 30 days</small></div>
+        <ul>
+          <li>1 Discord bot</li>
+          <li>512 MB RAM</li>
+          <li>1 GB storage</li>
+          <li>Basic dashboard</li>
+        </ul>
+        <button onclick="planNotice('Free Trial')">Get Started</button>
+      </div>
+
+      <div class="plan featured">
+        <div class="trial">POPULAR PLAN</div>
+        <h3>Starter</h3>
+        <div class="price">₹120 <small>/ 30 days</small></div>
+        <ul>
+          <li>1 Discord bot</li>
+          <li>1 GB RAM</li>
+          <li>3 GB storage</li>
+          <li>Hosting dashboard</li>
+        </ul>
+        <button onclick="planNotice('Starter')">Choose Starter</button>
+      </div>
+
+      <div class="plan">
+        <h3>Pro</h3>
+        <div class="price">₹180 <small>/ 30 days</small></div>
+        <ul>
+          <li>2 Discord bots</li>
+          <li>2 GB RAM</li>
+          <li>5 GB storage</li>
+          <li>Hosting dashboard</li>
+        </ul>
+        <button onclick="planNotice('Pro')">Choose Pro</button>
+      </div>
+
+      <div class="plan">
+        <h3>Advanced</h3>
+        <div class="price">₹260 <small>/ 30 days</small></div>
+        <ul>
+          <li>3 Discord bots</li>
+          <li>3 GB RAM</li>
+          <li>8 GB storage</li>
+          <li>Priority support</li>
+        </ul>
+        <button onclick="planNotice('Advanced')">Choose Advanced</button>
+      </div>
+
+      <div class="plan">
+        <h3>Ultimate</h3>
+        <div class="price">₹480 <small>/ 30 days</small></div>
+        <ul>
+          <li>5 Discord bots</li>
+          <li>6 GB RAM</li>
+          <li>15 GB storage</li>
+          <li>Priority support</li>
+        </ul>
+        <button onclick="planNotice('Ultimate')">Choose Ultimate</button>
+      </div>
+
+    </div>
+
+    <p style="text-align:center;color:#8995aa;font-size:12px;margin-top:20px">
+      Plan prices and resources are proposed examples, not active offers.
+      Actual availability depends on server capacity.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="ai-box">
+      <h2>🤖 NEVERLOSE AI FIXER</h2>
+      <p>
+        Our planned AI assistant will help identify console errors,
+        explain problems, and suggest code corrections.
+        Changes will require your approval.
+      </p>
+      <span class="tag">COMING SOON</span>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="logo">NEVERLOSE <span>ERA</span></div>
+  <p>© 2026 NEVERLOSE ERA. All rights reserved.</p>
+  <p>Built for the next generation of bot hosting.</p>
+</footer>
+
+<script>
+  function loginNotice() {
+    alert("Google Login will be connected in the next development step.");
+  }
+
+  function planNotice(plan) {
+    alert(
+      plan + " selected! Account registration and hosting checkout are coming soon."
+    );
+  }
+</script>
+
+</body>
+  </html>
+  
