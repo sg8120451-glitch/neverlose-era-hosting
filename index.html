@@ -81,6 +81,11 @@
       cursor: pointer;
     }
 
+    .login-btn:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
     .hero {
       max-width: 1150px;
       margin: auto;
@@ -309,8 +314,8 @@
     <div class="nav-links">
       <a href="#features">Features</a>
       <a href="#plans">Plans</a>
-      <button class="login-btn" onclick="loginNotice()">
-        Login
+      <button class="login-btn" id="loginBtn" type="button">
+        Login with Google
       </button>
     </div>
   </nav>
@@ -461,18 +466,105 @@
   <p>Built for the next generation of bot hosting.</p>
 </footer>
 
+<!-- Supabase JavaScript library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-  function loginNotice() {
-    alert("Google Login will be connected in the next development step.");
+  const SUPABASE_URL =
+    "https://tntpedvbxyhoutzxznlw.supabase.co";
+
+  const SUPABASE_KEY =
+    "sb_publishable_WPvtzp4Ji2A854bwY2adcQ_tHnL4ggE";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  const loginBtn = document.getElementById("loginBtn");
+
+  // Google Login
+  async function loginWithGoogle() {
+    loginBtn.disabled = true;
+    loginBtn.textContent = "Connecting...";
+
+    try {
+      const { error } =
+        await supabaseClient.auth.signInWithOAuth({
+          provider: "google",
+          options: {
+            redirectTo: window.location.origin
+          }
+        });
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      alert("Google Login Error: " + error.message);
+      loginBtn.disabled = false;
+      loginBtn.textContent = "Login with Google";
+    }
   }
 
+  // Logout
+  async function logout() {
+    loginBtn.disabled = true;
+
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (error) {
+      alert("Logout Error: " + error.message);
+    }
+
+    await updateLoginButton();
+  }
+
+  // Update button according to login session
+  async function updateLoginButton() {
+    const { data, error } =
+      await supabaseClient.auth.getSession();
+
+    if (error) {
+      console.error("Session Error:", error.message);
+      return;
+    }
+
+    const session = data.session;
+
+    if (session) {
+      loginBtn.textContent = "Logout";
+      loginBtn.title = session.user.email || "Logged in";
+      loginBtn.onclick = logout;
+    } else {
+      loginBtn.textContent = "Login with Google";
+      loginBtn.title = "Login with Google";
+      loginBtn.onclick = loginWithGoogle;
+    }
+
+    loginBtn.disabled = false;
+  }
+
+  // Listen for login and logout changes
+  supabaseClient.auth.onAuthStateChange(
+    (event, session) => {
+      if (event === "SIGNED_IN" || event === "SIGNED_OUT") {
+        updateLoginButton();
+      }
+    }
+  );
+
+  // Initial session check
+  updateLoginButton();
+
+  // Hosting plan notices
   function planNotice(plan) {
     alert(
-      plan + " selected! Account registration and hosting checkout are coming soon."
+      plan +
+      " selected! Account registration and hosting checkout are coming soon."
     );
   }
 </script>
 
 </body>
-  </html>
-  
+</html>
